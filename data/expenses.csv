@@ -1,0 +1,2 @@
+id, person_id, expense_bool, amount, description
+0, 1, TRUE, 25.55, blah

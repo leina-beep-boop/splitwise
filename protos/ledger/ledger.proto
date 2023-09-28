@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option go_package = "./"; 
+
+package ledger;
+
+message Expense {
+  int32 id = 1;
+  int32 person_id = 2;
+  bool expense_bool = 3;
+  float amount = 4;
+  string description = 5;
+}
+
+message AllExpenses {
+  repeated Expense expenses = 1;
+}
+
+message LedgerRequest {
+  Expense expense = 1;
+}
+
+message LedgerResponse {
+  enum Status {
+    pending = 0;
+    success = 1;
+    failed = 2;
+  }
+  
+  AllExpenses expenses = 1;
+  Status status = 2;
+}
+
+service LedgerService {
+  rpc AddExpense(LedgerRequest) returns (LedgerResponse) {}
+  rpc ResetExpenses(LedgerRequest) returns (LedgerResponse) {}
+  rpc GetAllExpenses(LedgerRequest) returns (LedgerResponse) {}
+}
