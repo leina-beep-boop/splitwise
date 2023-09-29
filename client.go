@@ -20,10 +20,19 @@ func main() {
 
 	c := pb.NewLedgerServiceClient(conn)
 
+	req := pb.LedgerRequest{
+		Expense: &pb.Expense{
+			Id:          "1",
+			PersonId:    "1",
+			ExpenseBool: true,
+			Amount:      12.39,
+			Description: "test expense",
+		},
+	}
 	// communicate to server
-	resp, err := c.AddExpense(context.Background(), &pb.LedgerRequest{})
+	resp, err := c.AddExpense(context.Background(), &req)
 	if err != nil {
 		log.Fatalf("Error when calling SayHello: %s", err)
 	}
-	log.Printf("Received response message from server: %s", resp.Body)
+	log.Printf("Received response message from server: %s", resp.Status)
 }

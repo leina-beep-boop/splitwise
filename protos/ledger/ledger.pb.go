@@ -66,7 +66,7 @@ func (x LedgerResponse_Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use LedgerResponse_Status.Descriptor instead.
 func (LedgerResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_protos_ledger_ledger_proto_rawDescGZIP(), []int{3, 0}
+	return file_protos_ledger_ledger_proto_rawDescGZIP(), []int{2, 0}
 }
 
 type Expense struct {
@@ -74,10 +74,10 @@ type Expense struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id          int32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	PersonId    int32   `protobuf:"varint,2,opt,name=person_id,json=personId,proto3" json:"person_id,omitempty"`
+	Id          string  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	PersonId    string  `protobuf:"bytes,2,opt,name=person_id,json=personId,proto3" json:"person_id,omitempty"`
 	ExpenseBool bool    `protobuf:"varint,3,opt,name=expense_bool,json=expenseBool,proto3" json:"expense_bool,omitempty"`
-	Amount      float32 `protobuf:"fixed32,4,opt,name=amount,proto3" json:"amount,omitempty"`
+	Amount      float64 `protobuf:"fixed64,4,opt,name=amount,proto3" json:"amount,omitempty"`
 	Description string  `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
 }
 
@@ -113,18 +113,18 @@ func (*Expense) Descriptor() ([]byte, []int) {
 	return file_protos_ledger_ledger_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Expense) GetId() int32 {
+func (x *Expense) GetId() string {
 	if x != nil {
 		return x.Id
 	}
-	return 0
+	return ""
 }
 
-func (x *Expense) GetPersonId() int32 {
+func (x *Expense) GetPersonId() string {
 	if x != nil {
 		return x.PersonId
 	}
-	return 0
+	return ""
 }
 
 func (x *Expense) GetExpenseBool() bool {
@@ -134,7 +134,7 @@ func (x *Expense) GetExpenseBool() bool {
 	return false
 }
 
-func (x *Expense) GetAmount() float32 {
+func (x *Expense) GetAmount() float64 {
 	if x != nil {
 		return x.Amount
 	}
@@ -148,53 +148,6 @@ func (x *Expense) GetDescription() string {
 	return ""
 }
 
-type AllExpenses struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Expenses []*Expense `protobuf:"bytes,1,rep,name=expenses,proto3" json:"expenses,omitempty"`
-}
-
-func (x *AllExpenses) Reset() {
-	*x = AllExpenses{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_protos_ledger_ledger_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *AllExpenses) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AllExpenses) ProtoMessage() {}
-
-func (x *AllExpenses) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_ledger_ledger_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AllExpenses.ProtoReflect.Descriptor instead.
-func (*AllExpenses) Descriptor() ([]byte, []int) {
-	return file_protos_ledger_ledger_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *AllExpenses) GetExpenses() []*Expense {
-	if x != nil {
-		return x.Expenses
-	}
-	return nil
-}
-
 type LedgerRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -206,7 +159,7 @@ type LedgerRequest struct {
 func (x *LedgerRequest) Reset() {
 	*x = LedgerRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_protos_ledger_ledger_proto_msgTypes[2]
+		mi := &file_protos_ledger_ledger_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -219,7 +172,7 @@ func (x *LedgerRequest) String() string {
 func (*LedgerRequest) ProtoMessage() {}
 
 func (x *LedgerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_ledger_ledger_proto_msgTypes[2]
+	mi := &file_protos_ledger_ledger_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -232,7 +185,7 @@ func (x *LedgerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LedgerRequest.ProtoReflect.Descriptor instead.
 func (*LedgerRequest) Descriptor() ([]byte, []int) {
-	return file_protos_ledger_ledger_proto_rawDescGZIP(), []int{2}
+	return file_protos_ledger_ledger_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *LedgerRequest) GetExpense() *Expense {
@@ -247,14 +200,14 @@ type LedgerResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Expenses *AllExpenses          `protobuf:"bytes,1,opt,name=expenses,proto3" json:"expenses,omitempty"`
+	Expenses []*Expense            `protobuf:"bytes,1,rep,name=expenses,proto3" json:"expenses,omitempty"`
 	Status   LedgerResponse_Status `protobuf:"varint,2,opt,name=status,proto3,enum=ledger.LedgerResponse_Status" json:"status,omitempty"`
 }
 
 func (x *LedgerResponse) Reset() {
 	*x = LedgerResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_protos_ledger_ledger_proto_msgTypes[3]
+		mi := &file_protos_ledger_ledger_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -267,7 +220,7 @@ func (x *LedgerResponse) String() string {
 func (*LedgerResponse) ProtoMessage() {}
 
 func (x *LedgerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_ledger_ledger_proto_msgTypes[3]
+	mi := &file_protos_ledger_ledger_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -280,10 +233,10 @@ func (x *LedgerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LedgerResponse.ProtoReflect.Descriptor instead.
 func (*LedgerResponse) Descriptor() ([]byte, []int) {
-	return file_protos_ledger_ledger_proto_rawDescGZIP(), []int{3}
+	return file_protos_ledger_ledger_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *LedgerResponse) GetExpenses() *AllExpenses {
+func (x *LedgerResponse) GetExpenses() []*Expense {
 	if x != nil {
 		return x.Expenses
 	}
@@ -303,26 +256,22 @@ var file_protos_ledger_ledger_proto_rawDesc = []byte{
 	0x0a, 0x1a, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x6c, 0x65, 0x64, 0x67, 0x65, 0x72, 0x2f,
 	0x6c, 0x65, 0x64, 0x67, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x06, 0x6c, 0x65,
 	0x64, 0x67, 0x65, 0x72, 0x22, 0x93, 0x01, 0x0a, 0x07, 0x45, 0x78, 0x70, 0x65, 0x6e, 0x73, 0x65,
-	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64,
 	0x12, 0x1b, 0x0a, 0x09, 0x70, 0x65, 0x72, 0x73, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20,
-	0x01, 0x28, 0x05, 0x52, 0x08, 0x70, 0x65, 0x72, 0x73, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x21, 0x0a,
+	0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x65, 0x72, 0x73, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x21, 0x0a,
 	0x0c, 0x65, 0x78, 0x70, 0x65, 0x6e, 0x73, 0x65, 0x5f, 0x62, 0x6f, 0x6f, 0x6c, 0x18, 0x03, 0x20,
 	0x01, 0x28, 0x08, 0x52, 0x0b, 0x65, 0x78, 0x70, 0x65, 0x6e, 0x73, 0x65, 0x42, 0x6f, 0x6f, 0x6c,
-	0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x02,
+	0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x01,
 	0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63,
 	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64,
-	0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x3a, 0x0a, 0x0b, 0x41, 0x6c,
-	0x6c, 0x45, 0x78, 0x70, 0x65, 0x6e, 0x73, 0x65, 0x73, 0x12, 0x2b, 0x0a, 0x08, 0x65, 0x78, 0x70,
+	0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x3a, 0x0a, 0x0d, 0x4c, 0x65,
+	0x64, 0x67, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x29, 0x0a, 0x07, 0x65,
+	0x78, 0x70, 0x65, 0x6e, 0x73, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x6c,
+	0x65, 0x64, 0x67, 0x65, 0x72, 0x2e, 0x45, 0x78, 0x70, 0x65, 0x6e, 0x73, 0x65, 0x52, 0x07, 0x65,
+	0x78, 0x70, 0x65, 0x6e, 0x73, 0x65, 0x22, 0xa4, 0x01, 0x0a, 0x0e, 0x4c, 0x65, 0x64, 0x67, 0x65,
+	0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2b, 0x0a, 0x08, 0x65, 0x78, 0x70,
 	0x65, 0x6e, 0x73, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x6c, 0x65,
 	0x64, 0x67, 0x65, 0x72, 0x2e, 0x45, 0x78, 0x70, 0x65, 0x6e, 0x73, 0x65, 0x52, 0x08, 0x65, 0x78,
-	0x70, 0x65, 0x6e, 0x73, 0x65, 0x73, 0x22, 0x3a, 0x0a, 0x0d, 0x4c, 0x65, 0x64, 0x67, 0x65, 0x72,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x29, 0x0a, 0x07, 0x65, 0x78, 0x70, 0x65, 0x6e,
-	0x73, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x6c, 0x65, 0x64, 0x67, 0x65,
-	0x72, 0x2e, 0x45, 0x78, 0x70, 0x65, 0x6e, 0x73, 0x65, 0x52, 0x07, 0x65, 0x78, 0x70, 0x65, 0x6e,
-	0x73, 0x65, 0x22, 0xa8, 0x01, 0x0a, 0x0e, 0x4c, 0x65, 0x64, 0x67, 0x65, 0x72, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2f, 0x0a, 0x08, 0x65, 0x78, 0x70, 0x65, 0x6e, 0x73, 0x65,
-	0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x6c, 0x65, 0x64, 0x67, 0x65, 0x72,
-	0x2e, 0x41, 0x6c, 0x6c, 0x45, 0x78, 0x70, 0x65, 0x6e, 0x73, 0x65, 0x73, 0x52, 0x08, 0x65, 0x78,
 	0x70, 0x65, 0x6e, 0x73, 0x65, 0x73, 0x12, 0x35, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73,
 	0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x1d, 0x2e, 0x6c, 0x65, 0x64, 0x67, 0x65, 0x72, 0x2e,
 	0x4c, 0x65, 0x64, 0x67, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x53,
@@ -360,30 +309,28 @@ func file_protos_ledger_ledger_proto_rawDescGZIP() []byte {
 }
 
 var file_protos_ledger_ledger_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_protos_ledger_ledger_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_protos_ledger_ledger_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_protos_ledger_ledger_proto_goTypes = []interface{}{
 	(LedgerResponse_Status)(0), // 0: ledger.LedgerResponse.Status
 	(*Expense)(nil),            // 1: ledger.Expense
-	(*AllExpenses)(nil),        // 2: ledger.AllExpenses
-	(*LedgerRequest)(nil),      // 3: ledger.LedgerRequest
-	(*LedgerResponse)(nil),     // 4: ledger.LedgerResponse
+	(*LedgerRequest)(nil),      // 2: ledger.LedgerRequest
+	(*LedgerResponse)(nil),     // 3: ledger.LedgerResponse
 }
 var file_protos_ledger_ledger_proto_depIdxs = []int32{
-	1, // 0: ledger.AllExpenses.expenses:type_name -> ledger.Expense
-	1, // 1: ledger.LedgerRequest.expense:type_name -> ledger.Expense
-	2, // 2: ledger.LedgerResponse.expenses:type_name -> ledger.AllExpenses
-	0, // 3: ledger.LedgerResponse.status:type_name -> ledger.LedgerResponse.Status
-	3, // 4: ledger.LedgerService.AddExpense:input_type -> ledger.LedgerRequest
-	3, // 5: ledger.LedgerService.ResetExpenses:input_type -> ledger.LedgerRequest
-	3, // 6: ledger.LedgerService.GetAllExpenses:input_type -> ledger.LedgerRequest
-	4, // 7: ledger.LedgerService.AddExpense:output_type -> ledger.LedgerResponse
-	4, // 8: ledger.LedgerService.ResetExpenses:output_type -> ledger.LedgerResponse
-	4, // 9: ledger.LedgerService.GetAllExpenses:output_type -> ledger.LedgerResponse
-	7, // [7:10] is the sub-list for method output_type
-	4, // [4:7] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	1, // 0: ledger.LedgerRequest.expense:type_name -> ledger.Expense
+	1, // 1: ledger.LedgerResponse.expenses:type_name -> ledger.Expense
+	0, // 2: ledger.LedgerResponse.status:type_name -> ledger.LedgerResponse.Status
+	2, // 3: ledger.LedgerService.AddExpense:input_type -> ledger.LedgerRequest
+	2, // 4: ledger.LedgerService.ResetExpenses:input_type -> ledger.LedgerRequest
+	2, // 5: ledger.LedgerService.GetAllExpenses:input_type -> ledger.LedgerRequest
+	3, // 6: ledger.LedgerService.AddExpense:output_type -> ledger.LedgerResponse
+	3, // 7: ledger.LedgerService.ResetExpenses:output_type -> ledger.LedgerResponse
+	3, // 8: ledger.LedgerService.GetAllExpenses:output_type -> ledger.LedgerResponse
+	6, // [6:9] is the sub-list for method output_type
+	3, // [3:6] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_protos_ledger_ledger_proto_init() }
@@ -405,18 +352,6 @@ func file_protos_ledger_ledger_proto_init() {
 			}
 		}
 		file_protos_ledger_ledger_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AllExpenses); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_protos_ledger_ledger_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*LedgerRequest); i {
 			case 0:
 				return &v.state
@@ -428,7 +363,7 @@ func file_protos_ledger_ledger_proto_init() {
 				return nil
 			}
 		}
-		file_protos_ledger_ledger_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_protos_ledger_ledger_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*LedgerResponse); i {
 			case 0:
 				return &v.state
@@ -447,7 +382,7 @@ func file_protos_ledger_ledger_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_protos_ledger_ledger_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   4,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
