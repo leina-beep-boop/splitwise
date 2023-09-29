@@ -6,8 +6,11 @@ import (
 
 	"google.golang.org/grpc"
 
-	pb "github.com/leina-beep-boop/splitwise/protos/ledger"
+	lpb "github.com/leina-beep-boop/splitwise/protos/ledger"
+	spb "github.com/leina-beep-boop/splitwise/protos/splitter"
 )
+
+// TODO: add command line features to make it a CLI application
 
 func main() {
 	// establish stubby connection
@@ -18,10 +21,11 @@ func main() {
 	}
 	defer conn.Close()
 
-	c := pb.NewLedgerServiceClient(conn)
+	lc := lpb.NewLedgerServiceClient(conn)
+	sc := spb.NewSplitterServiceClient(conn)
 
-	req := pb.LedgerRequest{
-		Expense: &pb.Expense{
+	req := lpb.LedgerRequest{
+		Expense: &lpb.Expense{
 			PersonId:    "1",
 			Debtors:     []string{"2", "3", "4"},
 			ExpenseBool: true,
@@ -30,9 +34,15 @@ func main() {
 		},
 	}
 	// communicate to server
-	resp, err := c.AddExpense(context.Background(), &req)
+	lresp, err := lc.AddExpense(context.Background(), &req)
 	if err != nil {
-		log.Fatalf("Error when calling SayHello: %s", err)
+		log.Fatalf("Error when calling AddExpense: %s", err)
 	}
-	log.Printf("Received response message from server: %s", resp.Status)
+	log.Printf("Received response message from server: %s", lresp.Status)
+
+	sresp, err := sc.CalculateDebt(context.Background(), &spb.SplitterRequest{})
+	if err != nil {
+		log.Fatalf("Error when calling AddExpense: %s", err)
+	}
+	log.Printf("Received response message from server: %s", sresp.Status)
 }

@@ -11,8 +11,6 @@ import (
 	pb "github.com/leina-beep-boop/splitwise/protos/ledger"
 )
 
-const dataPath string = "./data/expenses.csv"
-
 type LedgerServiceServer struct {
 	pb.UnimplementedLedgerServiceServer
 }

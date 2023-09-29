@@ -2,3 +2,9 @@ id,person_id,debtor_id,expense_bool,amount,description
 1,1,2,true,4.13,test expense
 1,1,3,true,4.13,test expense
 1,1,4,true,4.13,test expense
+1,1,2,true,4.13,test expense
+1,1,3,true,4.13,test expense
+1,1,4,true,4.13,test expense
+1,1,2,true,4.13,test expense
+1,1,3,true,4.13,test expense
+1,1,4,true,4.13,test expense
