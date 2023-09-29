@@ -23,7 +23,6 @@ func (LedgerServiceServer) AddExpense(ctx context.Context, req *pb.LedgerRequest
 		log.Printf("Could not open dataset at path: %v.\nErr: %v", dataPath, err)
 		return &pb.LedgerResponse{Status: 2}, err
 	}
-	// writer := csv.NewWriter(file)
 	exp := req.Expense
 	file.WriteString(fmt.Sprintf("%v,%v,%v,%v,%v\n",
 		exp.Id,
@@ -54,6 +53,10 @@ func (LedgerServiceServer) GetAllExpenses(ctx context.Context, req *pb.LedgerReq
 		return &pb.LedgerResponse{Status: 2}, err
 	}
 	records, err := csv.NewReader(file).ReadAll()
+	if err != nil {
+		log.Printf("Could not read dataset at path: %v.\nErr: %v", dataPath, err)
+		return &pb.LedgerResponse{Status: 2}, err
+	}
 	expenses := make([]*pb.Expense, len(records)-1) // first row is header
 	var exp pb.Expense
 	for i, record := range records {
