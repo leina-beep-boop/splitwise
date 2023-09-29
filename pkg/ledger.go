@@ -24,13 +24,18 @@ func (LedgerServiceServer) AddExpense(ctx context.Context, req *pb.LedgerRequest
 		return &pb.LedgerResponse{Status: 2}, err
 	}
 	exp := req.Expense
-	file.WriteString(fmt.Sprintf("%v,%v,%v,%v,%v\n",
-		exp.Id,
-		exp.PersonId,
-		exp.ExpenseBool,
-		exp.Amount,
-		exp.Description))
-	log.Printf("add expense %v", exp)
+	// TODO: implement proper ID maintenance for the expenses
+	// TODO add more error handling logic
+	for _, debtor := range exp.Debtors {
+		s := fmt.Sprintf("1,%v,%v,%v,%.2f,%v\n",
+			exp.PersonId,
+			debtor,
+			exp.ExpenseBool,
+			exp.Amount/float64(len(exp.Debtors)),
+			exp.Description)
+		file.WriteString(s)
+		log.Printf("add expense %v", s)
+	}
 	file.Close()
 	return &pb.LedgerResponse{Status: 1}, nil
 }
@@ -41,7 +46,7 @@ func (LedgerServiceServer) ResetExpenses(ctx context.Context, req *pb.LedgerRequ
 		log.Printf("Could not create dataset at path: %v.\nErr: %v", dataPath, err)
 		return &pb.LedgerResponse{Status: 2}, err
 	}
-	file.WriteString("id,person_id,expense_bool,amount,description\n")
+	file.WriteString("id,person_id,debtor_id,expense_bool,amount,description\n")
 	file.Close()
 	return &pb.LedgerResponse{Status: 1}, nil
 }

@@ -22,8 +22,8 @@ func main() {
 
 	req := pb.LedgerRequest{
 		Expense: &pb.Expense{
-			Id:          "1",
 			PersonId:    "1",
+			Debtors:     []string{"2", "3", "4"},
 			ExpenseBool: true,
 			Amount:      12.39,
 			Description: "test expense",

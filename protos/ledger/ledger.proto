@@ -5,11 +5,21 @@ option go_package = "./";
 package ledger;
 
 message Expense {
+  // id of the expense
   string id = 1;
+  // id of the person paying
+  // this assumes that all transactions are split
+  // evenly across all persons in the ledger
+  // TODO: implement one-to-one transactions with multiple actors
   string person_id = 2;
-  bool expense_bool = 3;
-  double amount = 4;
-  string description = 5;
+  // list of people who owe money
+  repeated string debtors = 3;
+  // expense_bool is True if giving money and
+  // False if borrowing money
+  bool expense_bool = 4;
+  double amount = 5;
+  string description = 6;
+  
 }
 
 message LedgerRequest {
