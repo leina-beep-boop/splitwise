@@ -8,7 +8,7 @@ import (
 
 	"github.com/grpc/grpc-go/reflection"
 
-	"github.com/leina-beep-boop/splitwise/pkg"
+	"github.com/leina-beep-boop/splitwise/ledgerserver"
 	lpb "github.com/leina-beep-boop/splitwise/protos"
 )
 
@@ -25,7 +25,7 @@ func main() {
 	// Register reflection service on gRPC server.
 	reflection.Register(grpcServer)
 
-	ls := pkg.LedgerServiceServer{}
+	ls := ledgerserver.New()
 	lpb.RegisterLedgerServiceServer(grpcServer, ls)
 
 	if err := grpcServer.Serve(lis); err != nil {

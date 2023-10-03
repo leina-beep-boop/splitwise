@@ -1,0 +1,12 @@
+[
+  {
+   "person_id": "1",
+   "amount": 15,
+   "description": "test expense"
+  },
+  {
+   "person_id": "2",
+   "amount": 5,
+   "description": "test expense 2"
+  }
+ ]

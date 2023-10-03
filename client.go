@@ -28,8 +28,6 @@ func main() {
 	req := lpb.LedgerRequest{
 		Expense: &lpb.Expense{
 			PersonId:    "1",
-			Debtors:     []string{"2", "3", "4"},
-			ExpenseBool: true,
 			Amount:      15.0,
 			Description: "test expense",
 		},
@@ -42,11 +40,9 @@ func main() {
 
 	req = lpb.LedgerRequest{
 		Expense: &lpb.Expense{
-			PersonId:    "3",
-			Debtors:     []string{"1"},
-			ExpenseBool: false,
+			PersonId:    "2",
 			Amount:      5.0,
-			Description: "paying back",
+			Description: "test expense 2",
 		},
 	}
 	resp, err = lc.AddExpense(context.Background(), &req)
@@ -54,4 +50,11 @@ func main() {
 		log.Fatalf("Error when calling AddExpense: %s", err)
 	}
 	log.Printf("Received response message from server: %s", resp.Status)
+
+	resp, err = lc.GetAllExpenses(context.Background(), &req)
+	if err != nil {
+		log.Fatalf("Error when calling GetAllExpenses %s", err)
+	}
+	log.Printf("Received response message from server: %s", resp.Status)
+	log.Printf("expenses: %s", resp.Expenses)
 }

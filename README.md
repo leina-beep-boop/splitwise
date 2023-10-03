@@ -1,10 +1,12 @@
 # splitwise
- create a primitive splitwise grpc application
+Create a primitive splitwise grpc application. 
+Only supports:
+- two people
+- all transactions are split evenly
+- all transactions are positive (does not support payback)
 
 ## Generate protos
-`protoc --go_out=protos/ledger --go-grpc_out=protos/ledger protos/ledger/ledger.proto`
-
-`protoc --go_out=protos/splitter --go-grpc_out=protos/splitter protos/splitter/splitter.proto`
+`protoc --go_out=protos --go-grpc_out=protos protos/ledger.proto`
 
 ## Run server
 - `go run server.go`
@@ -12,9 +14,10 @@
 - local server commands: `grpcurl -plaintext localhost:8080 describe`
 - alternatively, run client: `go run client.go`
 
-Plan:
-The issue right now is the package is rather hard to maintain
-and look at
-- switch to json dataset
-- use json / proto marshal and unmarshalling
-- make protos adjustments with splitter
+## Future plans
+- implement proper ID maintenance for the expenses
+- connect to a real database
+- add unit testing
+- handle input errors i.e. improper data formats
+- add middleware logging
+- create a more CLI friendly application
