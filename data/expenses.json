@@ -8,5 +8,8 @@
    "person_id": "2",
    "amount": 5,
    "description": "test expense 2"
+  },
+  {
+   "id": "1"
   }
  ]

@@ -39,4 +39,5 @@ service LedgerService {
   rpc AddExpense(LedgerRequest) returns (LedgerResponse) {}
   rpc ResetExpenses(LedgerRequest) returns (LedgerResponse) {}
   rpc GetAllExpenses(LedgerRequest) returns (LedgerResponse) {}
+  rpc SplitCosts(LedgerRequest) returns (LedgerResponse) {}
 }

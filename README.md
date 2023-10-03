@@ -1,9 +1,9 @@
 # splitwise
 Create a primitive splitwise grpc application. 
 Only supports:
-- two people
-- all transactions are split evenly
-- all transactions are positive (does not support payback)
+- adding transactions
+- getting expenses
+- resetting all expenses
 
 ## Generate protos
 `protoc --go_out=protos --go-grpc_out=protos protos/ledger.proto`
@@ -15,6 +15,8 @@ Only supports:
 - alternatively, run client: `go run client.go`
 
 ## Future plans
+- split costs for two people
+- split costs for >2 people
 - implement proper ID maintenance for the expenses
 - connect to a real database
 - add unit testing
