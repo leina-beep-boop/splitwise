@@ -6,8 +6,7 @@ import (
 
 	"google.golang.org/grpc"
 
-	lpb "github.com/leina-beep-boop/splitwise/protos/ledger"
-	spb "github.com/leina-beep-boop/splitwise/protos/splitter"
+	lpb "github.com/leina-beep-boop/splitwise/protos"
 )
 
 // TODO: add command line features to make it a CLI application
@@ -22,10 +21,9 @@ func main() {
 	defer conn.Close()
 
 	lc := lpb.NewLedgerServiceClient(conn)
-	sc := spb.NewSplitterServiceClient(conn)
 
-	lresp, _ := lc.ResetExpenses(context.Background(), &lpb.LedgerRequest{})
-	log.Printf("Received response message from server: %s", lresp.Status)
+	resp, _ := lc.ResetExpenses(context.Background(), &lpb.LedgerRequest{})
+	log.Printf("Received response message from server: %s", resp.Status)
 
 	req := lpb.LedgerRequest{
 		Expense: &lpb.Expense{
@@ -36,11 +34,11 @@ func main() {
 			Description: "test expense",
 		},
 	}
-	lresp, err = lc.AddExpense(context.Background(), &req)
+	resp, err = lc.AddExpense(context.Background(), &req)
 	if err != nil {
 		log.Fatalf("Error when calling AddExpense: %s", err)
 	}
-	log.Printf("Received response message from server: %s", lresp.Status)
+	log.Printf("Received response message from server: %s", resp.Status)
 
 	req = lpb.LedgerRequest{
 		Expense: &lpb.Expense{
@@ -51,15 +49,9 @@ func main() {
 			Description: "paying back",
 		},
 	}
-	lresp, err = lc.AddExpense(context.Background(), &req)
+	resp, err = lc.AddExpense(context.Background(), &req)
 	if err != nil {
 		log.Fatalf("Error when calling AddExpense: %s", err)
 	}
-	log.Printf("Received response message from server: %s", lresp.Status)
-
-	sresp, err := sc.CalculateDebt(context.Background(), &spb.SplitterRequest{})
-	if err != nil {
-		log.Fatalf("Error when calling AddExpense: %s", err)
-	}
-	log.Printf("Received response message from server: %s", sresp.Status)
+	log.Printf("Received response message from server: %s", resp.Status)
 }

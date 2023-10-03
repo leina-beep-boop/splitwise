@@ -8,8 +8,10 @@ import (
 	"os"
 	"strconv"
 
-	pb "github.com/leina-beep-boop/splitwise/protos/ledger"
+	pb "github.com/leina-beep-boop/splitwise/protos"
 )
+
+const dataPath string = "./data/expenses.csv"
 
 type LedgerServiceServer struct {
 	pb.UnimplementedLedgerServiceServer

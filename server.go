@@ -9,8 +9,7 @@ import (
 	"github.com/grpc/grpc-go/reflection"
 
 	"github.com/leina-beep-boop/splitwise/pkg"
-	lpb "github.com/leina-beep-boop/splitwise/protos/ledger"
-	spb "github.com/leina-beep-boop/splitwise/protos/splitter"
+	lpb "github.com/leina-beep-boop/splitwise/protos"
 )
 
 // should eventually listen to both servers
@@ -28,9 +27,6 @@ func main() {
 
 	ls := pkg.LedgerServiceServer{}
 	lpb.RegisterLedgerServiceServer(grpcServer, ls)
-
-	ss := pkg.SplitterServiceServer{}
-	spb.RegisterSplitterServiceServer(grpcServer, ss)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
