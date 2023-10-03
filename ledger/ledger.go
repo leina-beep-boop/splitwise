@@ -41,12 +41,16 @@ func (led *Ledger) ReadExpenses() ([]*pb.Expense, error) {
 	if err != nil {
 		log.Printf("Could not open dataset at path: %v.\nErr: %v", dataPath, err)
 	}
+	// check if dataset is empty
+	if len(file) == 0 {
+		return []*pb.Expense{}, nil
+	}
 	expenses := []*pb.Expense{}
 	err = json.Unmarshal(file, &expenses)
 	if err != nil {
 		log.Printf("Could not unmarshal dataset. Err: %v", err)
 	}
-	return expenses, err
+	return expenses, nil
 }
 
 func (led *Ledger) AddExpense(exp *pb.Expense) error {
