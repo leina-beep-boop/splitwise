@@ -23,3 +23,4 @@ Only supports:
 - handle input errors i.e. improper data formats
 - add middleware logging
 - create a more CLI friendly application
+- build and deploy on the internet, preferably kubernetes
