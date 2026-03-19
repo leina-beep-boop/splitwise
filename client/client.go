@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 
 	lpb "github.com/leina-beep-boop/splitwise/protos"
 )
@@ -14,9 +15,9 @@ import (
 func main() {
 	// establish stubby connection
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(":8080", grpc.WithInsecure())
+	conn, err := grpc.Dial(":8080", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
-		log.Fatal("did not connect: %s", err)
+		log.Fatal("did not connect: ", err)
 	}
 	defer conn.Close()
 
